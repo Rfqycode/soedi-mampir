@@ -1,0 +1,12 @@
+# Node (Frontend)
+barbershop-website/node_modules/
+barbershop-website/.next/
+barbershop-website/dist/
+
+# Python (Backend)
+BARBERSHOP-BACKEND/__pycache__/
+BARBERSHOP-BACKEND/*.pyc
+BARBERSHOP-BACKEND/db.sqlite3
+BARBERSHOP-BACKEND/.env
+BARBERSHOP-BACKEND/venv/
+BARBERSHOP-BACKEND/env/
