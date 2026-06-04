@@ -42,7 +42,7 @@ export default function AdminPage() {
     const token = localStorage.getItem("access_token");
 
     try {
-      const res = await fetch("http://127.0.0.1:8000/api/daftar-pesanan/", {
+      const res = await fetch("https://soedi-mampir-production.up.railway.app/api/daftar-pesanan/", {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
@@ -69,7 +69,7 @@ export default function AdminPage() {
     setError("");
 
     try {
-      const res = await fetch("http://127.0.0.1:8000/api/token/", {
+      const res = await fetch("https://soedi-mampir-production.up.railway.app/api/token/", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ username, password }),

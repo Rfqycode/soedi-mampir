@@ -53,13 +53,13 @@ export default function ReservasiPage() {
         setLoading(true);
 
         // 1. Ambil Data Kapster
-        const resKapster = await fetch("http://127.0.0.1:8000/api/kapster/");
+        const resKapster = await fetch("https://soedi-mampir-production.up.railway.app/api/kapster/");
         if (!resKapster.ok) throw new Error("Gagal mengambil data kapster");
         const dataKapster = await resKapster.json();
         setKapsters(dataKapster);
 
         // 2. Ambil Data Layanan Langsung dari Django (KODE BARU)
-        const resLayanan = await fetch("http://127.0.0.1:8000/api/layanan/");
+        const resLayanan = await fetch("https://soedi-mampir-production.up.railway.app/api/layanan/");
         if (!resLayanan.ok) throw new Error("Gagal mengambil data layanan");
         const dataLayanan = await resLayanan.json();
         setLayonans(dataLayanan);
@@ -76,7 +76,7 @@ export default function ReservasiPage() {
 
   useEffect(() => {
     if (tanggal && selectedKapster) {
-      fetch(`http://127.0.0.1:8000/api/cek-jadwal/?tanggal=${tanggal}&kapster=${selectedKapster}`)
+      fetch(`https://soedi-mampir-production.up.railway.app/api/cek-jadwal/?tanggal=${tanggal}&kapster=${selectedKapster}`)
         .then(res => res.json())
         .then(data => {
           setJamSudahDipesan(data.jam_terisi || []);
@@ -110,7 +110,7 @@ export default function ReservasiPage() {
 
     try {
       setSubmitting(true);
-      const res = await fetch("http://127.0.0.1:8000/api/buat-pesanan/", {
+      const res = await fetch("https://soedi-mampir-production.up.railway.app/api/buat-pesanan/", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
