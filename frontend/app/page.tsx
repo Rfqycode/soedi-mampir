@@ -1,31 +1,22 @@
 "use client";
 
-import { useState } from "react";
 import Link from "next/link";
 import { SiInstagram, SiWhatsapp } from "react-icons/si";
 
 export default function Home() {
   // ==========================================
-  // STATE & DATA UNTUK KATALOG
+  // DATA UNTUK LAYANAN (SERVICES)
   // ==========================================
-  const [kategoriAktif, setKategoriAktif] = useState("SEMUA");
-
-  const daftarProduk = [
-    { id: 1, nama: "Premium Oil-Based Pomade", kategori: "POMADE", harga: 120000, gambar: "https://images.unsplash.com/photo-1605497746444-1306509934ad?q=80&w=500&auto=format&fit=crop" },
-    { id: 2, nama: "Water-Based Styling Pomade", kategori: "POMADE", harga: 110000, gambar: "https://images.unsplash.com/photo-1599351431202-1e0f0137899a?q=80&w=500&auto=format&fit=crop" },
-    { id: 3, nama: "Texture Styling Powder", kategori: "POWDER", harga: 95000, gambar: "https://images.unsplash.com/photo-1532712938310-34cb3982ef74?q=80&w=500&auto=format&fit=crop" },
-    { id: 4, nama: "Matte Texture Clay", kategori: "CLAY", harga: 135000, gambar: "https://images.unsplash.com/photo-1622286342621-4bd786c2447c?q=80&w=500&auto=format&fit=crop" }
+  const daftarLayanan = [
+    { id: 1, nama: "POTONG", harga: "60k", deskripsi: "Potong rambut standar dengan hasil presisi." },
+    { id: 2, nama: "POTONG + KERAMAS", harga: "80k", deskripsi: "Potong rambut lengkap dengan cuci bersih." },
+    { id: 3, nama: "BOOKING + KERAMAS", harga: "100k", deskripsi: "Amankan jadwal bebas antri ditambah cuci." },
+    { id: 4, nama: "CREAMBATH", harga: "80k", deskripsi: "Perawatan kulit kepala dan rambut agar rileks." },
+    { id: 5, nama: "COLORING", harga: "300-400k", deskripsi: "Pewarnaan rambut profesional." },
+    { id: 6, nama: "PERMING", harga: "300-400k", deskripsi: "Styling keriting rambut permanen." },
+    { id: 7, nama: "DOWN PERM", harga: "200k", deskripsi: "Meluruskan rambut bagian samping." },
+    { id: 8, nama: "CUKUR DI RUMAH", harga: "200-300k", deskripsi: "Layanan home service langsung ke tempatmu." }
   ];
-
-  const produkTersaring = kategoriAktif === "SEMUA"
-    ? daftarProduk
-    : daftarProduk.filter(produk => produk.kategori === kategoriAktif);
-
-  const daftarKategori = ["SEMUA", "POMADE", "POWDER", "CLAY"];
-
-  const formatRupiah = (angka: number) => {
-    return new Intl.NumberFormat("id-ID", { style: "currency", currency: "IDR", maximumFractionDigits: 0 }).format(angka);
-  };
 
   return (
     <main className="font-sans bg-[#F5F3EC] text-[#1A1A1A]">
@@ -131,73 +122,42 @@ export default function Home() {
           ========================================= */}
       <section className="bg-white py-32 px-6 border-y border-gray-200">
         <div className="max-w-6xl mx-auto text-center space-y-10">
-
-          {/* Typografi Raksasa */}
           <h2 className="text-5xl md:text-7xl lg:text-[5rem] font-black leading-[0.95] tracking-tighter uppercase text-[#1A1A1A]">
             DARI TERASLINE <br />
             <span className="inline-block border-b-8 border-gray-300 pb-2">MENJADI SOEDI MAMPIR</span> <br />
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-gray-400 to-gray-200">SEJAK 2016</span>
           </h2>
-
           <div className="max-w-2xl mx-auto pt-8">
             <p className="text-gray-600 text-lg leading-relaxed font-medium">
               Berawal dari semangat di Terasline pada tahun 2016, kami tumbuh dan berevolusi menjadi <strong>SOEDI MAMPIR</strong>. Dengan konsep industrial modern di APT Pranoto, kami berkomitmen memberikan lebih dari sekadar jasa potong rambut kami memberikan identitas karakter terbaik untuk gaya Anda setiap hari.
             </p>
-
-            <div className="mt-10 flex items-center justify-center gap-12 text-center">
-            </div>
           </div>
-
         </div>
       </section>
 
       {/* =========================================
-          3. KATALOG SECTION 
+          3. SERVICES SECTION (TERBARU)
           ========================================= */}
-      <section id="katalog" className="bg-[#F5F3EC] py-32 px-6">
+      <section id="services" className="bg-[#F5F3EC] py-32 px-6">
         <div className="max-w-7xl mx-auto">
-
-          <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6">
-            <div>
-              <h2 className="text-4xl font-black tracking-tighter uppercase mb-2">ESSENTIALS FOR<br />GOOD STYLES</h2>
-              <p className="text-gray-600 font-medium">Produk perawatan premium untuk styling harianmu.</p>
-            </div>
-
-            {/* Filter Tombol - Pill Style */}
-            <div className="flex flex-wrap gap-3">
-              {daftarKategori.map((kategori) => (
-                <button
-                  key={kategori}
-                  onClick={() => setKategoriAktif(kategori)}
-                  className={`px-6 py-2 rounded-full text-xs font-bold tracking-widest uppercase transition-all duration-300 border ${kategoriAktif === kategori
-                    ? "bg-[#1A1A1A] text-white border-[#1A1A1A]"
-                    : "bg-white text-gray-500 border-gray-300 hover:border-[#1A1A1A] hover:text-[#1A1A1A]"
-                    }`}
-                >
-                  {kategori}
-                </button>
-              ))}
-            </div>
+          <div className="mb-16">
+            <h2 className="text-4xl font-black tracking-tighter uppercase mb-2">OUR SERVICES</h2>
+            <p className="text-gray-600 font-medium">Pilihan layanan terbaik untuk menunjang penampilanmu.</p>
           </div>
 
-          {/* Grid Produk */}
+          {/* Grid Layanan */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {produkTersaring.map((produk) => (
-              <div key={produk.id} className="group bg-white rounded-3xl border border-gray-200 overflow-hidden hover:shadow-[0_20px_40px_rgba(0,0,0,0.06)] hover:-translate-y-1 transition-all duration-300 flex flex-col">
-                <div className="w-full h-64 bg-gray-100 p-6 flex items-center justify-center relative overflow-hidden">
-                  <img src={produk.gambar} alt={produk.nama} className="w-full h-full object-cover rounded-xl group-hover:scale-105 transition-transform duration-500" />
+            {daftarLayanan.map((layanan) => (
+              <div key={layanan.id} className="group bg-white p-8 rounded-3xl border border-gray-200 hover:shadow-[0_20px_40px_rgba(0,0,0,0.06)] hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between h-full">
+                <div>
+                  <h3 className="font-bold text-xl mb-3 text-[#1A1A1A] leading-tight uppercase group-hover:text-blue-600 transition-colors">{layanan.nama}</h3>
+                  <p className="text-sm text-gray-500 mb-6">{layanan.deskripsi}</p>
                 </div>
-                <div className="p-6 flex flex-col flex-1 justify-between">
-                  <div>
-                    <span className="text-[10px] font-black text-gray-400 tracking-widest uppercase mb-2 block">{produk.kategori}</span>
-                    <h3 className="font-bold text-lg mb-4 text-[#1A1A1A] leading-tight">{produk.nama}</h3>
-                  </div>
-                  <div className="flex items-center justify-between mt-4 pt-4 border-t border-gray-100">
-                    <span className="text-[#1A1A1A] font-black text-lg">{formatRupiah(produk.harga)}</span>
-                    <button className="w-8 h-8 rounded-full border border-gray-300 flex items-center justify-center text-gray-500 group-hover:bg-[#1A1A1A] group-hover:text-white group-hover:border-[#1A1A1A] transition-colors">
-                      ↗
-                    </button>
-                  </div>
+                <div className="flex items-end justify-between mt-auto pt-4 border-t border-gray-100">
+                  <span className="text-[#1A1A1A] font-black text-2xl">Rp {layanan.harga}</span>
+                  <Link href="/reservasi" className="w-10 h-10 rounded-full border border-gray-300 flex items-center justify-center text-gray-500 group-hover:bg-[#1A1A1A] group-hover:text-white group-hover:border-[#1A1A1A] transition-colors">
+                    ↗
+                  </Link>
                 </div>
               </div>
             ))}
@@ -236,11 +196,9 @@ export default function Home() {
         </div>
 
         <div className="gallery-container flex overflow-hidden w-full relative">
-          {/* Gradient masking untuk light mode */}
           <div className="absolute left-0 top-0 bottom-0 w-32 bg-gradient-to-r from-white to-transparent z-10 pointer-events-none"></div>
           <div className="absolute right-0 top-0 bottom-0 w-32 bg-gradient-to-l from-white to-transparent z-10 pointer-events-none"></div>
 
-          {/* GRUP 1 */}
           <div className="flex gap-6 pr-6 animate-scroll-infinite w-max">
             {[1, 2, 3, 4, 5, 6].map((item) => (
               <div
@@ -256,7 +214,6 @@ export default function Home() {
             ))}
           </div>
 
-          {/* GRUP 2 */}
           <div className="flex gap-6 pr-6 animate-scroll-infinite w-max" aria-hidden="true">
             {[1, 2, 3, 4, 5, 6].map((item) => (
               <div
@@ -271,7 +228,6 @@ export default function Home() {
               </div>
             ))}
           </div>
-
         </div>
       </section>
 
@@ -280,9 +236,7 @@ export default function Home() {
           ========================================= */}
       <footer className="bg-[#1A1A1A] pt-24 pb-12 px-6 rounded-t-[3rem] mt-[-2rem] relative z-20">
         <div className="max-w-7xl mx-auto">
-
           <div className="grid grid-cols-1 md:grid-cols-3 gap-12 text-center md:text-left mb-16">
-
             <div className="flex flex-col items-center md:items-start">
               <h4 className="text-white font-bold text-lg mb-4 flex items-center gap-2">📍 Our Location</h4>
               <p className="text-gray-400 text-sm leading-relaxed">
@@ -291,27 +245,23 @@ export default function Home() {
                 Kalimantan Timur
               </p>
             </div>
-
             <div className="flex flex-col items-center md:items-start">
               <h4 className="text-white font-bold text-lg mb-4 flex items-center gap-2">📞 Get in Touch</h4>
               <p className="text-gray-400 text-sm">Phone: 0812 3456 7890</p>
               <p className="text-gray-400 text-sm mt-1">Email: hello@soedimampir.com</p>
             </div>
-
             <div className="flex flex-col items-center md:items-start">
               <h4 className="text-white font-bold text-lg mb-4 flex items-center gap-2">🕒 Working Hours</h4>
               <p className="text-gray-400 text-sm">Setiap Hari</p>
               <p className="text-gray-400 text-sm mt-1">13:00 – 23:00 </p>
             </div>
           </div>
-
           <div className="border-t border-white/10 pt-8 flex flex-col md:flex-row justify-between items-center gap-6">
             <div className="flex flex-col items-center md:items-start gap-2">
               <h2 className="text-2xl font-black text-white tracking-widest uppercase">
                 SOEDI MAMPIR.
               </h2>
             </div>
-
             <div className="flex gap-4">
               <a href="https://www.instagram.com/soedi_mampir/" target="_blank" className="p-3 bg-gray-800 rounded-full hover:bg-pink-600 transition-colors">
                 <SiInstagram size={20} />
@@ -320,12 +270,10 @@ export default function Home() {
                 <SiWhatsapp size={20} />
               </a>
             </div>
-
             <div className="text-gray-500 text-xs md:text-sm text-center md:text-right">
               Copyright &copy; 2026 Soedi Mampir Barbershop. <br className="md:hidden" /> All Rights Reserved.
             </div>
           </div>
-
         </div>
       </footer>
     </main>
