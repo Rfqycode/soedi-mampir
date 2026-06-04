@@ -126,8 +126,9 @@ STATIC_URL = 'static/'
 
 # MENGIZINKAN NEXT.JS MENGAKSES API DJANGO
 CORS_ALLOWED_ORIGINS = [
-    "http://localhost:3000",
-]
+    "https://soedi-mampir.vercel.app",
+    "http://localhost:3000", 
+    ]
 
 # MENGATUR TIPE ID OTOMATIS (PRIMARY KEY)
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
