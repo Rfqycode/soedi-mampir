@@ -128,6 +128,11 @@ CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000", 
     ]
 
+CSRF_TRUSTED_ORIGINS = [
+    "https://soedi-mampir.vercel.app",
+    "https://soedi-mampir-production.up.railway.app"  
+]
+
 # MENGATUR TIPE ID OTOMATIS (PRIMARY KEY)
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
