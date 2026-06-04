@@ -185,19 +185,55 @@ export default function ReservasiPage() {
               <span className="w-8 h-8 rounded-full bg-[#F5F3EC] flex items-center justify-center text-sm font-bold">1</span>
               Pilih Kapster
             </h2>
-            <div className="flex flex-wrap justify-center gap-8">
-              {kapsters.map((kapster) => (
-                <div key={kapster.id} onClick={() => kapster.status_aktif && setSelectedKapster(kapster.id)}
-                  className={`p-6 rounded-3xl border-2 transition-all duration-300 cursor-pointer flex flex-col items-center text-center gap-4 w-48 ${!kapster.status_aktif ? "opacity-40 cursor-not-allowed border-gray-200 bg-gray-50" : selectedKapster === kapster.id ? "border-[#1A1A1A] bg-[#F5F3EC] shadow-xl scale-105" : "border-gray-200 bg-white hover:border-gray-400 hover:shadow-lg"}`}>
-                  <div className="w-24 h-24 rounded-full bg-gray-100 overflow-hidden border-4 border-[#F5F3EC] shadow-inner">
-                    <img src={kapster.nama.toLowerCase().includes("fadil") ? "/images/bang_fadil.jpg" : "/images/bang_fredo.jpg"} alt={kapster.nama} className="w-full h-full object-cover" />
+            
+            {/* Container Grid 2 Kolom */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 max-w-2xl mx-auto">
+              {kapsters.slice(0, 2).map((kapster) => {
+                const isSelected = selectedKapster === kapster.id;
+                const isDisabled = !kapster.status_aktif;
+
+                return (
+                  <div
+                    key={kapster.id}
+                    onClick={() => !isDisabled && setSelectedKapster(kapster.id)}
+                    className={`relative group rounded-[1.5rem] overflow-hidden aspect-[3/4] transition-all duration-300 cursor-pointer border-4 ${
+                      isDisabled
+                        ? "opacity-50 grayscale cursor-not-allowed border-transparent"
+                        : isSelected
+                        ? "border-[#1A1A1A] shadow-xl scale-[1.02]"
+                        : "border-transparent hover:border-gray-200 hover:shadow-lg"
+                    }`}
+                  >
+                    {/* Gambar Full Cover */}
+                    <img
+                      src={kapster.nama.toLowerCase().includes("fadil") ? "/images/bang_fadil.jpg" : "/images/bang_fredo.jpg"}
+                      alt={kapster.nama}
+                      className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                    />
+
+                    {/* Ikon Panah Pojok Kanan Atas (Gaya Referensi) */}
+                    <div className={`absolute top-4 right-4 w-10 h-10 flex items-center justify-center rounded-xl backdrop-blur-md transition-all font-bold text-lg ${
+                      isSelected ? "bg-[#1A1A1A] text-white" : "bg-white/80 text-[#1A1A1A]"
+                    }`}>
+                      ↗
+                    </div>
+
+                    {/* Area Teks Nama (Gaya Overlay Bawah) */}
+                    <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent pt-24 pb-6 px-6">
+                      <div className={`inline-block px-5 py-3 rounded-xl transition-colors duration-300 ${
+                        isSelected ? "bg-[#1A1A1A] text-white" : "bg-white/20 backdrop-blur-md text-white"
+                      }`}>
+                        <h3 className="font-black text-lg uppercase tracking-wider leading-none mb-1">{kapster.nama}</h3>
+                        <p className="text-[10px] font-bold tracking-widest uppercase opacity-80">
+                          {isDisabled ? "Tidak Tersedia" : isSelected ? "Kapster Terpilih" : "Pilih Kapster"}
+                        </p>
+                      </div>
+                    </div>
                   </div>
-                  <h3 className="font-black text-sm uppercase tracking-wider">{kapster.nama}</h3>
-                </div>
-              ))}
+                );
+              })}
             </div>
           </div>
-
           {/* STEP 2: PILIH LAYANAN */}
           <div className="bg-white p-8 rounded-[2rem] shadow-[0_20px_50px_rgba(0,0,0,0.02)] border border-gray-100">
             <h2 className="text-xl font-black uppercase tracking-tight mb-6 flex items-center gap-3">
