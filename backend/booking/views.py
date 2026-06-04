@@ -60,3 +60,9 @@ def daftar_pesanan(request):
     serializer = PesananBookingSerializer(pesanan, many=True)
     
     return Response(serializer.data)
+
+@api_view(['GET'])
+def daftar_layanan(request):
+    layanans = Layanan.objects.all()
+    serializer = LayananSerializer(layanans, many=True)
+    return Response(serializer.data)

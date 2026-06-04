@@ -154,7 +154,7 @@ export default function AdminPage() {
 
   // TAMPILAN DASHBOARD
   return (
-    <main className="min-h-screen bg-[#F5F3EC] text-[#1A1A1A] p-8 font-sans">
+    <main className="min-h-screen bg-[#F5F3EC] text-[#1A1A1A] px-8 pb-8 pt-40 font-sans">
       <div className="max-w-6xl mx-auto">
         <header className="flex justify-between items-center mb-12 border-b-4 border-[#1A1A1A] pb-6">
           <h1 className="text-4xl font-black uppercase tracking-tighter">

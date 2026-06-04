@@ -234,46 +234,53 @@ export default function Home() {
       {/* =========================================
           5. FOOTER SECTION 
           ========================================= */}
-      <footer className="bg-[#1A1A1A] pt-24 pb-12 px-6 rounded-t-[3rem] mt-[-2rem] relative z-20">
+      <footer className="bg-[#0A0A0A] text-white pt-24 pb-8 px-6 border-t border-gray-900 mt-20">
         <div className="max-w-7xl mx-auto">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-12 text-center md:text-left mb-16">
-            <div className="flex flex-col items-center md:items-start">
-              <h4 className="text-white font-bold text-lg mb-4 flex items-center gap-2">📍 Our Location</h4>
-              <p className="text-gray-400 text-sm leading-relaxed">
-                Jl. APT Pranoto, belakang indomart<br />
-                Kec. Sangatta Utara, Kabupaten Kutai Timur<br />
-                Kalimantan Timur
+
+          {/* Bagian Call To Action (Rayuan Terakhir) */}
+          <div className="flex flex-col md:flex-row items-start md:items-end justify-between border-b border-gray-800 pb-16 mb-16 gap-8">
+            <div className="max-w-2xl">
+              <h2 className="text-5xl md:text-7xl font-black tracking-tighter uppercase leading-none mb-6">
+                SIAP TAMPIL <br /><span className="text-gray-600">MAKSIMAL?</span>
+              </h2>
+              <p className="text-gray-400 text-sm max-w-md leading-relaxed">
+                Jangan biarkan rambut berantakan merusak harimu. Amankan kursimu sekarang dan rasakan pengalaman cukur premium di Sangatta.
               </p>
             </div>
-            <div className="flex flex-col items-center md:items-start">
-              <h4 className="text-white font-bold text-lg mb-4 flex items-center gap-2">📞 Get in Touch</h4>
-              <p className="text-gray-400 text-sm">Phone: 0812 3456 7890</p>
-              <p className="text-gray-400 text-sm mt-1">Email: hello@soedimampir.com</p>
+            <Link href="/reservasi" className="px-10 py-5 rounded-full bg-[#F5F3EC] text-[#0A0A0A] text-sm font-black tracking-widest uppercase hover:bg-white transition-all hover:scale-105 shadow-[0_0_40px_rgba(245,243,236,0.15)] flex-shrink-0">
+              RESERVASI SEKARANG!
+            </Link>
+          </div>
+
+          {/* Bagian Grid Info Minimalis */}
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-12 text-sm text-gray-400 mb-20">
+            <div className="space-y-4">
+              <h4 className="text-white font-black uppercase tracking-widest text-xs">Lokasi Kami</h4>
+              <p className="leading-relaxed">Jl. APT Pranoto<br />Belakang Indomaret<br />Sangatta Utara, Kutai Timur</p>
             </div>
-            <div className="flex flex-col items-center md:items-start">
-              <h4 className="text-white font-bold text-lg mb-4 flex items-center gap-2">🕒 Working Hours</h4>
-              <p className="text-gray-400 text-sm">Setiap Hari</p>
-              <p className="text-gray-400 text-sm mt-1">13:00 – 23:00 </p>
+            <div className="space-y-4">
+              <h4 className="text-white font-black uppercase tracking-widest text-xs">Kontak</h4>
+              <p className="leading-relaxed">0857-5342-4792<br />web.soedimampir@gmail.com</p>
+            </div>
+            <div className="space-y-4">
+              <h4 className="text-white font-black uppercase tracking-widest text-xs">Jam Operasional</h4>
+              <p className="leading-relaxed">Setiap Hari<br />13:00 - 23:00 WITA</p>
+            </div>
+            <div className="space-y-4">
+              <h4 className="text-white font-black uppercase tracking-widest text-xs">Sosial Media</h4>
+              <div className="flex gap-4">
+                <a href="https://www.instagram.com/soedi_mampir/" className="hover:text-white transition-colors underline underline-offset-4">Instagram</a>
+                <a href="https://wa.me/6285753424792" className="hover:text-white transition-colors underline underline-offset-4">WhatsApp</a>
+              </div>
             </div>
           </div>
-          <div className="border-t border-white/10 pt-8 flex flex-col md:flex-row justify-between items-center gap-6">
-            <div className="flex flex-col items-center md:items-start gap-2">
-              <h2 className="text-2xl font-black text-white tracking-widest uppercase">
-                SOEDI MAMPIR.
-              </h2>
-            </div>
-            <div className="flex gap-4">
-              <a href="https://www.instagram.com/soedi_mampir/" target="_blank" className="p-3 bg-gray-800 rounded-full hover:bg-pink-600 transition-colors">
-                <SiInstagram size={20} />
-              </a>
-              <a href="https://wa.me/6281234567890" target="_blank" className="p-3 bg-gray-800 rounded-full hover:bg-green-600 transition-colors">
-                <SiWhatsapp size={20} />
-              </a>
-            </div>
-            <div className="text-gray-500 text-xs md:text-sm text-center md:text-right">
-              Copyright &copy; 2026 Soedi Mampir Barbershop. <br className="md:hidden" /> All Rights Reserved.
-            </div>
+
+          {/* Copyright */}
+          <div className="flex flex-col md:flex-row justify-between items-center text-[10px] text-gray-600 font-black uppercase tracking-widest">
+            <p>© 2026 SOEDI MAMPIR BARBERSHOP.</p>
+            <p>BUILT WITH PASSION.</p>
           </div>
+
         </div>
       </footer>
     </main>

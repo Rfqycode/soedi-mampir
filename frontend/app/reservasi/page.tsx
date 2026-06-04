@@ -13,7 +13,7 @@ interface Kapster {
 
 interface Layanan {
   id: number;
-  nama: string;
+  nama_layanan: string;
   harga: number;
   durasi?: string;
 }
@@ -51,21 +51,19 @@ export default function ReservasiPage() {
     const fetchData = async () => {
       try {
         setLoading(true);
+
+        // 1. Ambil Data Kapster
         const resKapster = await fetch("http://127.0.0.1:8000/api/kapster/");
         if (!resKapster.ok) throw new Error("Gagal mengambil data kapster");
         const dataKapster = await resKapster.json();
         setKapsters(dataKapster);
 
-        setLayonans([
-          { id: 1, nama: "Potong", harga: 60000 },
-          { id: 2, nama: "Potong + Keramas", harga: 80000 },
-          { id: 3, nama: "Booking + Keramas", harga: 100000 },
-          { id: 4, nama: "Creambath", harga: 80000 },
-          { id: 5, nama: "Coloring", harga: 300000 },
-          { id: 6, nama: "Perming", harga: 300000 },
-          { id: 7, nama: "Down Perm", harga: 200000 },
-          { id: 8, nama: "Cukur di Rumah", harga: 200000 },
-        ]);
+        // 2. Ambil Data Layanan Langsung dari Django (KODE BARU)
+        const resLayanan = await fetch("http://127.0.0.1:8000/api/layanan/");
+        if (!resLayanan.ok) throw new Error("Gagal mengambil data layanan");
+        const dataLayanan = await resLayanan.json();
+        setLayonans(dataLayanan);
+
         setError(null);
       } catch (err: any) {
         setError(err.message || "Terjadi kesalahan koneksi ke server.");
@@ -107,7 +105,7 @@ export default function ReservasiPage() {
     const layananObj = layonans.find(l => l.id === selectedLayanan);
     const kapsterObj = kapsters.find(k => k.id === selectedKapster);
     const totalHarga = layananObj ? layananObj.harga : 0;
-    const namaLayanan = layananObj ? layananObj.nama : "-";
+    const namaLayanan = layananObj ? layananObj.nama_layanan : "-";
     const namaKapster = kapsterObj ? kapsterObj.nama : "-";
 
     try {
@@ -185,7 +183,7 @@ export default function ReservasiPage() {
               <span className="w-8 h-8 rounded-full bg-[#F5F3EC] flex items-center justify-center text-sm font-bold">1</span>
               Pilih Kapster
             </h2>
-            
+
             {/* Container Grid 2 Kolom */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 max-w-2xl mx-auto">
               {kapsters.slice(0, 2).map((kapster) => {
@@ -196,13 +194,12 @@ export default function ReservasiPage() {
                   <div
                     key={kapster.id}
                     onClick={() => !isDisabled && setSelectedKapster(kapster.id)}
-                    className={`relative group rounded-[1.5rem] overflow-hidden aspect-[3/4] transition-all duration-300 cursor-pointer border-4 ${
-                      isDisabled
-                        ? "opacity-50 grayscale cursor-not-allowed border-transparent"
-                        : isSelected
+                    className={`relative group rounded-[1.5rem] overflow-hidden aspect-[3/4] transition-all duration-300 cursor-pointer border-4 ${isDisabled
+                      ? "opacity-50 grayscale cursor-not-allowed border-transparent"
+                      : isSelected
                         ? "border-[#1A1A1A] shadow-xl scale-[1.02]"
                         : "border-transparent hover:border-gray-200 hover:shadow-lg"
-                    }`}
+                      }`}
                   >
                     {/* Gambar Full Cover */}
                     <img
@@ -211,18 +208,10 @@ export default function ReservasiPage() {
                       className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                     />
 
-                    {/* Ikon Panah Pojok Kanan Atas (Gaya Referensi) */}
-                    <div className={`absolute top-4 right-4 w-10 h-10 flex items-center justify-center rounded-xl backdrop-blur-md transition-all font-bold text-lg ${
-                      isSelected ? "bg-[#1A1A1A] text-white" : "bg-white/80 text-[#1A1A1A]"
-                    }`}>
-                      ↗
-                    </div>
-
                     {/* Area Teks Nama (Gaya Overlay Bawah) */}
                     <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent pt-24 pb-6 px-6">
-                      <div className={`inline-block px-5 py-3 rounded-xl transition-colors duration-300 ${
-                        isSelected ? "bg-[#1A1A1A] text-white" : "bg-white/20 backdrop-blur-md text-white"
-                      }`}>
+                      <div className={`inline-block px-5 py-3 rounded-xl transition-colors duration-300 ${isSelected ? "bg-[#1A1A1A] text-white" : "bg-white/20 backdrop-blur-md text-white"
+                        }`}>
                         <h3 className="font-black text-lg uppercase tracking-wider leading-none mb-1">{kapster.nama}</h3>
                         <p className="text-[10px] font-bold tracking-widest uppercase opacity-80">
                           {isDisabled ? "Tidak Tersedia" : isSelected ? "Kapster Terpilih" : "Pilih Kapster"}
@@ -245,7 +234,7 @@ export default function ReservasiPage() {
                 <div key={layanan.id} onClick={() => setSelectedLayanan(layanan.id)}
                   className={`p-5 rounded-2xl border-2 transition-all duration-300 cursor-pointer flex justify-between items-center ${selectedLayanan === layanan.id ? "border-[#1A1A1A] bg-[#F5F3EC]/50 shadow-sm" : "border-gray-200 bg-white hover:border-gray-400"}`}>
                   <div className="space-y-1">
-                    <h3 className="font-bold text-base">{layanan.nama}</h3>
+                    <h3 className="font-bold text-base">{layanan.nama_layanan}</h3>
                   </div>
                   <div className="text-right">
                     <span className="font-black text-base text-[#1A1A1A]">{formatRupiah(layanan.harga)}</span>
