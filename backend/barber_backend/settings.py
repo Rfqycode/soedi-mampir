@@ -124,6 +124,8 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 
+CORS_ALLOW_ALL_ORIGINS = True
+
 # MENGIZINKAN NEXT.JS MENGAKSES API DJANGO
 CORS_ALLOWED_ORIGINS = [
     "https://soedi-mampir.vercel.app",
@@ -148,4 +150,3 @@ SIMPLE_JWT = {
     'AUTH_HEADER_TYPES': ('Bearer',),
 }
 
-CORS_ALLOW_ALL_ORIGINS = True
