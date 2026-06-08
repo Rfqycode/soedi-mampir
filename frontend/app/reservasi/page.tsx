@@ -126,7 +126,7 @@ export default function ReservasiPage() {
 
       if (!res.ok) throw new Error("Gagal membuat reservasi.");
 
-      const nomorWA = "6282358155538";
+      const nomorWA = "6285753424792";
       const pesanText = `Halo Admin, saya ingin konfirmasi booking:\n\n*Nama:* ${namaPelanggan}\n*Kapster:* ${namaKapster}\n*Layanan:* ${namaLayanan}\n*Tanggal:* ${tanggal}\n*Jam:* ${jam}\n*Total:* ${formatRupiah(totalHarga)}`;
       window.open(`https://wa.me/${nomorWA}?text=${encodeURIComponent(pesanText)}`, "_blank");
 

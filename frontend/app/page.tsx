@@ -109,7 +109,7 @@ export default function Home() {
               <p className="text-xs tracking-widest uppercase text-gray-400 font-bold">Konsultasi Gaya</p>
               <h3 className="text-2xl font-bold leading-tight">Mari Bicara Tentang Gaya Anda</h3>
             </div>
-            <a href="https://wa.me/6285753424792" target="_blank" rel="noreferrer" className="inline-flex items-center justify-between w-full mt-6 bg-white/10 hover:bg-white text-white hover:text-black px-5 py-3 rounded-xl transition-all font-bold text-sm">
+            <a href="https://wa.me/cc" target="_blank" rel="noreferrer" className="inline-flex items-center justify-between w-full mt-6 bg-white/10 hover:bg-white text-white hover:text-black px-5 py-3 rounded-xl transition-all font-bold text-sm">
               Hubungi Kami <span>→</span>
             </a>
           </div>
