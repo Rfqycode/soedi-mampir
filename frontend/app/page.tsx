@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { SiInstagram, SiWhatsapp } from "react-icons/si";
+import { motion } from "framer-motion";
 
 export default function Home() {
   // ==========================================
@@ -22,36 +23,57 @@ export default function Home() {
     <main className="font-sans bg-[#F5F3EC] text-[#1A1A1A]">
 
       {/* =========================================
-          1. HERO SECTION 
+          1. HERO SECTION (DENGAN ANIMASI)
           ========================================= */}
       <section className="pt-28 pb-32 px-6 relative overflow-hidden">
         {/* Dekorasi Aksen */}
         <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-[#E8E4D8] rounded-full blur-3xl -z-10 translate-x-1/3 -translate-y-1/4"></div>
 
-        <div className="max-w-7xl mx-auto lg:flex lg:items-center lg:justify-between w-full relative z-10">
+        {/* Kontainer Induk Animasi (Mengatur jeda waktu antar elemen) */}
+        <motion.div
+          initial="hidden"
+          animate="visible"
+          variants={{
+            hidden: { opacity: 0 },
+            visible: { opacity: 1, transition: { staggerChildren: 0.2 } }
+          }}
+          className="max-w-7xl mx-auto lg:flex lg:items-center lg:justify-between w-full relative z-10"
+        >
 
           {/* Teks Kiri */}
           <div className="lg:w-[55%] space-y-8">
-            <div className="inline-flex items-center gap-3 bg-white px-4 py-2 rounded-full shadow-sm border border-gray-200">
+            <motion.div
+              variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" } } }}
+              className="inline-flex items-center gap-3 bg-white px-4 py-2 rounded-full shadow-sm border border-gray-200"
+            >
               <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span>
               <p className="text-xs font-bold tracking-widest uppercase text-gray-600">
                 Premium Grooming di Sangatta
               </p>
-            </div>
+            </motion.div>
 
-            <h1 className="text-6xl lg:text-[5.5rem] font-black leading-[0.9] tracking-tighter uppercase text-[#1A1A1A]">
+            <motion.h1
+              variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" } } }}
+              className="text-6xl lg:text-[5.5rem] font-black leading-[0.9] tracking-tighter uppercase text-[#1A1A1A]"
+            >
               Gaya Rambut <br />
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#1A1A1A] to-gray-400">
                 Terbaik
               </span> <br />
               Di Kota Ini.
-            </h1>
+            </motion.h1>
 
-            <p className="text-gray-600 text-lg max-w-md leading-relaxed font-medium">
+            <motion.p
+              variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" } } }}
+              className="text-gray-600 text-lg max-w-md leading-relaxed font-medium"
+            >
               Kami fokus pada kenyamanan, presisi, dan detail untuk menciptakan gaya yang membuatmu tampil penuh percaya diri.
-            </p>
+            </motion.p>
 
-            <div className="pt-4 flex items-center gap-6">
+            <motion.div
+              variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" } } }}
+              className="pt-4 flex items-center gap-6"
+            >
               <Link href="/reservasi" className="inline-block px-10 py-4 rounded-full bg-[#1A1A1A] text-white font-bold tracking-widest uppercase hover:bg-gray-800 hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
                 Book Now
               </Link>
@@ -60,11 +82,16 @@ export default function Home() {
                 <img className="w-12 h-12 rounded-full border-4 border-[#F5F3EC] object-cover" src="/images/model_2.jpg" alt="Client" />
                 <div className="w-12 h-12 rounded-full border-4 border-[#F5F3EC] bg-gray-300 flex items-center justify-center text-xs font-bold">+2K</div>
               </div>
-            </div>
+            </motion.div>
           </div>
 
-          {/* Gambar Kanan (Geometric Cut) */}
-          <div className="lg:w-[40%] mt-16 lg:mt-0 relative">
+          {/* Gambar Kanan (Geometric Cut) muncul dari kanan */}
+          <motion.div
+            initial={{ opacity: 0, scale: 0.8, x: 50 }}
+            animate={{ opacity: 1, scale: 1, x: 0 }}
+            transition={{ duration: 0.8, delay: 0.5, ease: "easeOut" }}
+            className="lg:w-[40%] mt-16 lg:mt-0 relative"
+          >
             <div className="w-full aspect-[4/5] bg-gray-200 rounded-[2rem] overflow-hidden shadow-2xl relative">
               <img
                 src="/images/hero1.jpg"
@@ -74,16 +101,21 @@ export default function Home() {
               <div className="absolute inset-0 border-[10px] border-[#F5F3EC]/20 rounded-[2rem] pointer-events-none"></div>
             </div>
 
-            {/* Badge Bintang Melayang */}
-            <div className="absolute -bottom-8 -left-8 bg-white p-5 rounded-2xl shadow-[0_20px_40px_rgba(0,0,0,0.08)] flex items-center gap-4">
+            {/* Badge Bintang Melayang (muncul belakangan) */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 1.1 }}
+              className="absolute -bottom-8 -left-8 bg-white p-5 rounded-2xl shadow-[0_20px_40px_rgba(0,0,0,0.08)] flex items-center gap-4"
+            >
               <div className="text-yellow-500 flex text-xl">
                 ★★★★★
               </div>
               <p className="text-sm font-bold leading-tight">4.9/5 <br /><span className="text-gray-500 text-xs font-normal">Rata-rata Rating</span></p>
-            </div>
-          </div>
+            </motion.div>
+          </motion.div>
 
-        </div>
+        </motion.div>
       </section>
 
       {/* =========================================
@@ -136,7 +168,7 @@ export default function Home() {
       </section>
 
       {/* =========================================
-          3. SERVICES SECTION (TERBARU)
+          3. SERVICES SECTION
           ========================================= */}
       <section id="services" className="bg-[#F5F3EC] py-32 px-6">
         <div className="max-w-7xl mx-auto">
