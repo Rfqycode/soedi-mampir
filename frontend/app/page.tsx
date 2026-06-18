@@ -10,7 +10,7 @@ export default function Home() {
   // LOGIKA UNTUK FOTO SLIDESHOW / BERGANTIAN
   // ==========================================
   // Pastikan nama file ini sama dengan yang kamu taruh di folder public/images/
-  const heroImages = ["/images/fadil.jpg", "/images/fredo.jpg"];
+  const heroImages = ["/images/fadil.jpeg", "/images/fredo.jpeg"];
   const [currentImgIndex, setCurrentImgIndex] = useState(0);
 
   useEffect(() => {
