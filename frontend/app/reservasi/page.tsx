@@ -129,7 +129,7 @@ export default function ReservasiPage() {
       // ==========================================
       // KODE BARU: LOGIKA NOMOR WA DINAMIS
       // ==========================================
-      let nomorWA = "6285753424792"; // Ini jadi nomor default/admin (buat jaga-jaga)
+      let nomorWA = "6282358155538"; // Ini jadi nomor default/admin (buat jaga-jaga)
 
       if (kapsterObj) {
         const namaKapsterLower = kapsterObj.nama.toLowerCase();
