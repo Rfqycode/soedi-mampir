@@ -126,8 +126,25 @@ export default function ReservasiPage() {
 
       if (!res.ok) throw new Error("Gagal membuat reservasi.");
 
-      const nomorWA = "6285753424792";
-      const pesanText = `Halo Admin, saya ingin konfirmasi booking:\n\n*Nama:* ${namaPelanggan}\n*Kapster:* ${namaKapster}\n*Layanan:* ${namaLayanan}\n*Tanggal:* ${tanggal}\n*Jam:* ${jam}\n*Total:* ${formatRupiah(totalHarga)}`;
+      // ==========================================
+      // KODE BARU: LOGIKA NOMOR WA DINAMIS
+      // ==========================================
+      let nomorWA = "6285753424792"; // Ini jadi nomor default/admin (buat jaga-jaga)
+
+      if (kapsterObj) {
+        const namaKapsterLower = kapsterObj.nama.toLowerCase();
+
+        // Cek apakah nama kapster yang dipilih mengandung kata "fadil" atau "fredo"
+        if (namaKapsterLower.includes("fadil")) {
+          nomorWA = "6285753424792"; // <-- GANTI DENGAN NOMOR WA BANG FADIL ASLI
+        } else if (namaKapsterLower.includes("fredo")) {
+          nomorWA = "6282247091885"; // <-- GANTI DENGAN NOMOR WA BANG FREDO ASLI
+        }
+      }
+
+      // Teks pesan juga bisa disesuaikan panggilannya
+      const pesanText = `Halo ${namaKapster}, saya ingin konfirmasi booking:\n\n*Nama:* ${namaPelanggan}\n*Layanan:* ${namaLayanan}\n*Tanggal:* ${tanggal}\n*Jam:* ${jam}\n*Total:* ${formatRupiah(totalHarga)}`;
+
       window.open(`https://wa.me/${nomorWA}?text=${encodeURIComponent(pesanText)}`, "_blank");
 
       router.push('/sukses');
