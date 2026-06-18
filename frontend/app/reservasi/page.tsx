@@ -136,9 +136,9 @@ export default function ReservasiPage() {
 
         // Cek apakah nama kapster yang dipilih mengandung kata "fadil" atau "fredo"
         if (namaKapsterLower.includes("fadil")) {
-          nomorWA = "6285753424792"; // <-- GANTI DENGAN NOMOR WA BANG FADIL ASLI
+          nomorWA = "6282358155538"; // <-- GANTI DENGAN NOMOR WA BANG FADIL ASLI 6285753424792
         } else if (namaKapsterLower.includes("fredo")) {
-          nomorWA = "6282247091885"; // <-- GANTI DENGAN NOMOR WA BANG FREDO ASLI
+          nomorWA = "6282358155538"; // <-- GANTI DENGAN NOMOR WA BANG FREDO ASLI 6282247091885
         }
       }
 
