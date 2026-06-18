@@ -21,7 +21,7 @@ export default function Sukses() {
 
                     {/* Kotak Peringatan Kuning */}
                     <div className="p-4 bg-yellow-500/10 border border-yellow-500/20 rounded-xl text-yellow-500 font-medium">
-                        ⚠️ Harap datang <strong>30 menit</strong> sebelum jam booking Anda untuk konfirmasi dan persiapan. Jika terlambat, antrean dapat dialihkan.
+                        ⚠️ Harap datang <strong>10 menit</strong> sebelum jam booking Anda untuk konfirmasi dan persiapan. Jika terlambat, antrean dapat dialihkan.
                     </div>
 
                     <p>Kami telah meneruskan detail reservasi Anda ke WhatsApp Admin untuk proses lebih lanjut.</p>

@@ -3,8 +3,24 @@
 import Link from "next/link";
 import { SiInstagram, SiWhatsapp } from "react-icons/si";
 import { motion } from "framer-motion";
+import { useState, useEffect } from "react";
 
 export default function Home() {
+  // ==========================================
+  // LOGIKA UNTUK FOTO SLIDESHOW / BERGANTIAN
+  // ==========================================
+  // Pastikan nama file ini sama dengan yang kamu taruh di folder public/images/
+  const heroImages = ["/images/fadil.jpg", "/images/fredo.jpg"];
+  const [currentImgIndex, setCurrentImgIndex] = useState(0);
+
+  useEffect(() => {
+    // Foto akan berganti setiap 4000 milidetik (4 detik)
+    const interval = setInterval(() => {
+      setCurrentImgIndex((prev) => (prev + 1) % heroImages.length);
+    }, 4000);
+    return () => clearInterval(interval);
+  }, [heroImages.length]);
+
   // ==========================================
   // DATA UNTUK LAYANAN (SERVICES)
   // ==========================================
@@ -69,8 +85,17 @@ export default function Home() {
             initial={{ opacity: 0, scale: 0.8, x: 50 }} animate={{ opacity: 1, scale: 1, x: 0 }} transition={{ duration: 0.8, delay: 0.5 }}
             className="lg:w-[40%] mt-16 lg:mt-0 relative"
           >
-            <div className="w-full aspect-[4/5] bg-gray-200 rounded-[2rem] overflow-hidden shadow-2xl relative">
-              <img src="/images/hero1.jpg" alt="Hero Soedi Mampir" className="w-full h-full object-cover transition-transform duration-700 hover:scale-105" />
+            {/* BAGIAN FOTO YANG BERGANTIAN */}
+            <div className="w-full aspect-[4/5] bg-gray-200 rounded-[2rem] overflow-hidden shadow-2xl relative group">
+              {heroImages.map((src, index) => (
+                <img
+                  key={src}
+                  src={src}
+                  alt={`Hero Soedi Mampir ${index + 1}`}
+                  className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 ease-in-out ${index === currentImgIndex ? "opacity-100" : "opacity-0"
+                    }`}
+                />
+              ))}
               <div className="absolute inset-0 border-[10px] border-[#F5F3EC]/20 rounded-[2rem] pointer-events-none"></div>
             </div>
 
@@ -108,7 +133,7 @@ export default function Home() {
               <p className="text-xs tracking-widest uppercase text-gray-400 font-bold">Konsultasi Gaya</p>
               <h3 className="text-2xl font-bold leading-tight">Mari Bicara Tentang Gaya Anda</h3>
             </div>
-            <a href="https://wa.me/cc" target="_blank" rel="noreferrer" className="inline-flex items-center justify-between w-full mt-6 bg-white/10 hover:bg-white text-white hover:text-black px-5 py-3 rounded-xl transition-all font-bold text-sm">
+            <a href="https://wa.me/6285753424792" target="_blank" rel="noreferrer" className="inline-flex items-center justify-between w-full mt-6 bg-white/10 hover:bg-white text-white hover:text-black px-5 py-3 rounded-xl transition-all font-bold text-sm">
               Hubungi Kami <span>→</span>
             </a>
           </motion.div>
@@ -193,7 +218,6 @@ export default function Home() {
           </div>
         </motion.div>
 
-        {/* Note: Bagian foto galeri tetap dibiarkan jalan infinite, tidak perlu whileInView agar tidak konflik */}
         <motion.div
           initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true, margin: "-50px" }} transition={{ duration: 1 }}
           className="gallery-container flex overflow-hidden w-full relative"
