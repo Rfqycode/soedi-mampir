@@ -21,9 +21,6 @@ interface Layanan {
 export default function ReservasiPage() {
   const router = useRouter();
 
-  // ==========================================
-  // 1. SEMUA STATE HARUS DI PALING ATAS
-  // ==========================================
   const [kapsters, setKapsters] = useState<Kapster[]>([]);
   const [layonans, setLayonans] = useState<Layanan[]>([]);
   const [loading, setLoading] = useState(true);
@@ -44,21 +41,15 @@ export default function ReservasiPage() {
     "18:00", "19:00", "20:00", "21:00", "22:00"
   ];
 
-  // ==========================================
-  // 2. SEMUA USE-EFFECT HARUS DI SINI
-  // ==========================================
   useEffect(() => {
     const fetchData = async () => {
       try {
         setLoading(true);
-
-        // 1. Ambil Data Kapster
         const resKapster = await fetch("https://soedi-mampir-production.up.railway.app/api/kapster/");
         if (!resKapster.ok) throw new Error("Gagal mengambil data kapster");
         const dataKapster = await resKapster.json();
         setKapsters(dataKapster);
 
-        // 2. Ambil Data Layanan Langsung dari Django (KODE BARU)
         const resLayanan = await fetch("https://soedi-mampir-production.up.railway.app/api/layanan/");
         if (!resLayanan.ok) throw new Error("Gagal mengambil data layanan");
         const dataLayanan = await resLayanan.json();
@@ -67,7 +58,7 @@ export default function ReservasiPage() {
         setError(null);
       } catch (err: any) {
         setError(err.message || "Terjadi kesalahan koneksi ke server.");
-      } finally {
+      } finaly {
         setLoading(false);
       }
     };
@@ -88,9 +79,6 @@ export default function ReservasiPage() {
     }
   }, [tanggal, selectedKapster]);
 
-  // ==========================================
-  // 3. FUNGSI LOGIKA / HANDLER (API, dll)
-  // ==========================================
   const formatRupiah = (angka: number) => {
     return new Intl.NumberFormat("id-ID", { style: "currency", currency: "IDR", maximumFractionDigits: 0 }).format(angka);
   };
@@ -126,25 +114,17 @@ export default function ReservasiPage() {
 
       if (!res.ok) throw new Error("Gagal membuat reservasi.");
 
-      // ==========================================
-      // KODE BARU: LOGIKA NOMOR WA DINAMIS
-      // ==========================================
-      let nomorWA = "6285753424792"; // Ini jadi nomor default/admin (buat jaga-jaga)
-
+      let nomorWA = "6285753424792";
       if (kapsterObj) {
         const namaKapsterLower = kapsterObj.nama.toLowerCase();
-
-        // Cek apakah nama kapster yang dipilih mengandung kata "fadil" atau "fredo"
         if (namaKapsterLower.includes("fadil")) {
-          nomorWA = "6285753424792"; // <-- GANTI DENGAN NOMOR WA BANG FADIL ASLI 
+          nomorWA = "6285753424792";
         } else if (namaKapsterLower.includes("fredo")) {
-          nomorWA = "6282247091885"; // <-- GANTI DENGAN NOMOR WA BANG FREDO ASLI 
+          nomorWA = "6282247091885";
         }
       }
 
-      // Teks pesan juga bisa disesuaikan panggilannya
       const pesanText = `Halo ${namaKapster}, saya ingin konfirmasi booking:\n\n*Nama:* ${namaPelanggan}\n*Layanan:* ${namaLayanan}\n*Tanggal:* ${tanggal}\n*Jam:* ${jam}\n*Total:* ${formatRupiah(totalHarga)}`;
-
       window.open(`https://wa.me/${nomorWA}?text=${encodeURIComponent(pesanText)}`, "_blank");
 
       router.push('/sukses');
@@ -160,136 +140,111 @@ export default function ReservasiPage() {
     }
   };
 
-  // ==========================================
-  // 4. BAGIAN TAMPILAN (UI)
-  // ==========================================
   if (loading) return (
-    <div className="min-h-screen bg-[#F5F3EC] flex flex-col items-center justify-center p-6">
-      <div className="w-12 h-12 border-4 border-[#1A1A1A] border-t-transparent rounded-full animate-spin mb-4"></div>
-      <p className="text-[#1A1A1A] font-bold tracking-widest uppercase text-xs animate-pulse">Menghubungkan ke Server...</p>
+    <div className="min-h-screen bg-[#0D0D0D] flex flex-col items-center justify-center p-6">
+      <div className="w-12 h-12 border-4 border-amber-500 border-t-transparent rounded-full animate-spin mb-4"></div>
+      <p className="text-amber-500 font-medium tracking-widest text-xs animate-pulse">MEMBUKA PINTU BARBER...</p>
     </div>
   );
 
   if (error) return (
-    <div className="min-h-screen bg-[#F5F3EC] flex flex-col items-center justify-center p-6 text-center">
-      <div className="text-4xl mb-4">⚠️</div>
-      <h2 className="text-2xl font-black uppercase tracking-tight text-red-600 mb-2">Gagal Memuat Data</h2>
-      <p className="text-gray-600 max-w-md text-sm mb-6">{error}</p>
-      <button onClick={() => window.location.reload()} className="px-6 py-2 bg-[#1A1A1A] text-white text-xs font-bold uppercase tracking-widest rounded-full">Coba Lagi</button>
+    <div className="min-h-screen bg-[#0D0D0D] flex flex-col items-center justify-center p-6 text-center text-white">
+      <div className="text-4xl mb-4 text-amber-500">⚠️</div>
+      <h2 className="text-xl font-bold tracking-wider uppercase mb-2">Koneksi Terganggu</h2>
+      <p className="text-gray-400 max-w-md text-sm mb-6">{error}</p>
+      <button onClick={() => window.location.reload()} className="px-6 py-2.5 bg-amber-500 text-black text-xs font-bold uppercase tracking-wider rounded-lg hover:bg-amber-600 transition-all">Coba Lagi</button>
     </div>
   );
 
   return (
-    <main className="min-h-screen bg-[#F5F3EC] text-[#1A1A1A] pt-28 pb-20 px-6 font-sans">
+    <main className="min-h-screen bg-[#0D0D0D] text-gray-100 pt-24 pb-20 px-4 antialiased">
       <div className="max-w-4xl mx-auto">
-        <div className="text-center mb-16 space-y-4">
-          <p className="text-xs font-black tracking-widest uppercase text-gray-400">Book Your Session</p>
-          <h1 className="text-5xl md:text-6xl font-black tracking-tighter uppercase leading-none">
-            ATUR JADWAL <br />
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#1A1A1A] to-gray-400">CUKURMU</span>
-          </h1>
-          <div className="w-12 h-1 bg-[#1A1A1A] mx-auto mt-4"></div>
+        <div className="text-center mb-12">
+          <span className="text-amber-500 text-xs font-semibold tracking-[0.3em] uppercase">Premium Experience</span>
+          <h1 className="text-4xl md:text-5xl font-serif tracking-wide mt-2 mb-3 text-white">RESERVASI JADWAL</h1>
+          <p className="text-gray-400 text-xs max-w-xs mx-auto">Pilih kapster andalan, treatment terbaik, dan waktu luangmu.</p>
         </div>
 
-        {successMessage && <div className="mb-8 p-6 bg-green-50 border border-green-200 text-green-800 rounded-3xl text-center font-bold shadow-sm animate-bounce">🎉 {successMessage}</div>}
-
-        <form onSubmit={handleSubmit} className="space-y-12">
-          {/* STEP 1: PILIH KAPSTER */}
-          <div className="bg-white p-8 rounded-[2rem] shadow-[0_20px_50px_rgba(0,0,0,0.02)] border border-gray-100 mb-8">
-            <h2 className="text-xl font-black uppercase tracking-tight mb-8 text-center flex items-center justify-center gap-3">
-              <span className="w-8 h-8 rounded-full bg-[#F5F3EC] flex items-center justify-center text-sm font-bold">1</span>
-              Pilih Kapster
-            </h2>
-
-            {/* Container Grid 2 Kolom */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 max-w-2xl mx-auto">
+        <form onSubmit={handleSubmit} className="space-y-8">
+          {/* STEP 1: KAPSTER */}
+          <div className="bg-[#141414] border border-neutral-800 p-6 rounded-2xl">
+            <div className="flex items-center gap-3 mb-6 border-b border-neutral-800 pb-4">
+              <span className="text-amber-500 font-serif text-lg">I.</span>
+              <h2 className="text-sm font-bold uppercase tracking-widest text-gray-300">Pilih Professional Master</h2>
+            </div>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
               {kapsters.slice(0, 2).map((kapster) => {
                 const isSelected = selectedKapster === kapster.id;
                 const isDisabled = !kapster.status_aktif;
-
                 return (
                   <div
                     key={kapster.id}
                     onClick={() => !isDisabled && setSelectedKapster(kapster.id)}
-                    className={`relative group rounded-[1.5rem] overflow-hidden aspect-[3/4] transition-all duration-300 cursor-pointer border-4 ${isDisabled
-                      ? "opacity-50 grayscale cursor-not-allowed border-transparent"
-                      : isSelected
-                        ? "border-[#1A1A1A] shadow-xl scale-[1.02]"
-                        : "border-transparent hover:border-gray-200 hover:shadow-lg"
-                      }`}
+                    className={`relative rounded-xl overflow-hidden aspect-[4/5] cursor-pointer transition-all duration-300 border ${isDisabled ? "opacity-30 grayscale cursor-not-allowed border-transparent" : isSelected ? "border-amber-500 ring-2 ring-amber-500/20 scale-[1.01]" : "border-neutral-800 hover:border-neutral-600"}`}
                   >
-                    {/* Gambar Full Cover */}
-                    <img
-                      src={kapster.nama.toLowerCase().includes("fadil") ? "/images/bang_fadil.jpg" : "/images/bang_fredo.jpg"}
-                      alt={kapster.nama}
-                      className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-                    />
-
-                    {/* Area Teks Nama (Gaya Overlay Bawah) */}
-                    <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent pt-24 pb-6 px-6">
-                      <div className={`inline-block px-5 py-3 rounded-xl transition-colors duration-300 ${isSelected ? "bg-[#1A1A1A] text-white" : "bg-white/20 backdrop-blur-md text-white"
-                        }`}>
-                        <h3 className="font-black text-lg uppercase tracking-wider leading-none mb-1">{kapster.nama}</h3>
-                        <p className="text-[10px] font-bold tracking-widest uppercase opacity-80">
-                          {isDisabled ? "Tidak Tersedia" : isSelected ? "Kapster Terpilih" : "Pilih Kapster"}
-                        </p>
-                      </div>
+                    <img src={kapster.nama.toLowerCase().includes("fadil") ? "/images/bang_fadil.jpg" : "/images/bang_fredo.jpg"} alt={kapster.nama} className="absolute inset-0 w-full h-full object-cover" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent flex flex-col justify-end p-5">
+                      <h3 className="font-serif text-xl text-white">{kapster.nama}</h3>
+                      <p className="text-[11px] text-amber-500 tracking-wider uppercase mt-1">
+                        {isDisabled ? "SANGKUT/OFF" : isSelected ? "TERPILIH" : "READY TO CUT"}
+                      </p>
                     </div>
                   </div>
                 );
               })}
             </div>
           </div>
-          {/* STEP 2: PILIH LAYANAN */}
-          <div className="bg-white p-8 rounded-[2rem] shadow-[0_20px_50px_rgba(0,0,0,0.02)] border border-gray-100">
-            <h2 className="text-xl font-black uppercase tracking-tight mb-6 flex items-center gap-3">
-              <span className="w-6 h-6 rounded-full bg-[#F5F3EC] flex items-center justify-center text-xs">2</span>
-              Pilih Layanan Treatment
-            </h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+
+          {/* STEP 2: LAYANAN */}
+          <div className="bg-[#141414] border border-neutral-800 p-6 rounded-2xl">
+            <div className="flex items-center gap-3 mb-6 border-b border-neutral-800 pb-4">
+              <span className="text-amber-500 font-serif text-lg">II.</span>
+              <h2 className="text-sm font-bold uppercase tracking-widest text-gray-300">Pilih Menu Treatment</h2>
+            </div>
+            <div className="space-y-3">
               {layonans.map((layanan) => (
-                <div key={layanan.id} onClick={() => setSelectedLayanan(layanan.id)}
-                  className={`p-5 rounded-2xl border-2 transition-all duration-300 cursor-pointer flex justify-between items-center ${selectedLayanan === layanan.id ? "border-[#1A1A1A] bg-[#F5F3EC]/50 shadow-sm" : "border-gray-200 bg-white hover:border-gray-400"}`}>
-                  <div className="space-y-1">
-                    <h3 className="font-bold text-base">{layanan.nama_layanan}</h3>
+                <div key={layanan.id} onClick={() => setSelectedLayanan(layanan.id)} className={`p-4 rounded-xl border transition-all duration-200 cursor-pointer flex justify-between items-center ${selectedLayanan === layanan.id ? "border-amber-500 bg-amber-500/5" : "border-neutral-800 bg-neutral-900/50 hover:border-neutral-700"}`}>
+                  <div>
+                    <h3 className="font-medium text-sm text-gray-200">{layanan.nama_layanan}</h3>
+                    <p className="text-[11px] text-gray-500 mt-0.5">Premium Service</p>
                   </div>
-                  <div className="text-right">
-                    <span className="font-black text-base text-[#1A1A1A]">{formatRupiah(layanan.harga)}</span>
-                  </div>
+                  <span className="font-mono text-sm text-amber-500">{formatRupiah(layanan.harga)}</span>
                 </div>
               ))}
             </div>
           </div>
 
-          {/* STEP 3: WAKTU & BIODATA */}
-          <div className="bg-white p-8 rounded-[2rem] shadow-[0_20px_50px_rgba(0,0,0,0.02)] border border-gray-100">
-            <h2 className="text-xl font-black uppercase tracking-tight mb-6 flex items-center gap-3">
-              <span className="w-6 h-6 rounded-full bg-[#F5F3EC] flex items-center justify-center text-xs">3</span>
-              Informasi Waktu & Kontak
-            </h2>
+          {/* STEP 3: TANGGAL & KONTAK */}
+          <div className="bg-[#141414] border border-neutral-800 p-6 rounded-2xl">
+            <div className="flex items-center gap-3 mb-6 border-b border-neutral-800 pb-4">
+              <span className="text-amber-500 font-serif text-lg">III.</span>
+              <h2 className="text-sm font-bold uppercase tracking-widest text-gray-300">Waktu & Kontak</h2>
+            </div>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div className="space-y-2">
-                <label className="block text-xs font-black uppercase tracking-wider text-gray-500">Pilih Tanggal</label>
-                <input type="date" value={tanggal} onChange={(e) => setTanggal(e.target.value)} className="w-full p-4 rounded-xl border border-gray-200 bg-gray-50 focus:bg-white focus:border-[#1A1A1A] outline-none transition-all text-sm" />
+                <label className="text-xs text-gray-400 uppercase tracking-wider">Tanggal Datang</label>
+                <input type="date" value={tanggal} onChange={(e) => setTanggal(e.target.value)} className="w-full p-3.5 rounded-xl border border-neutral-800 bg-neutral-900 text-sm text-gray-100 focus:border-amber-500 focus:outline-none transition-colors" />
               </div>
               <div className="space-y-4">
                 <div className="space-y-2">
-                  <label className="block text-xs font-black uppercase tracking-wider text-gray-500">Nama Lengkap Anda</label>
-                  <input type="text" value={namaPelanggan} onChange={(e) => setNamaPelanggan(e.target.value)} className="w-full p-4 rounded-xl border border-gray-200 bg-gray-50 outline-none text-sm" />
+                  <label className="text-xs text-gray-400 uppercase tracking-wider">Nama Lengkap</label>
+                  <input type="text" placeholder="Masukkan nama..." value={namaPelanggan} onChange={(e) => setNamaPelanggan(e.target.value)} className="w-full p-3.5 rounded-xl border border-neutral-800 bg-neutral-900 text-sm text-gray-100 focus:border-amber-500 focus:outline-none" />
                 </div>
                 <div className="space-y-2">
-                  <label className="block text-xs font-black uppercase tracking-wider text-gray-500">Nomor WhatsApp</label>
-                  <input type="tel" value={nomorHp} onChange={(e) => setNomorHp(e.target.value)} className="w-full p-4 rounded-xl border border-gray-200 bg-gray-50 outline-none text-sm" />
+                  <label className="text-xs text-gray-400 uppercase tracking-wider">WhatsApp</label>
+                  <input type="tel" placeholder="0812..." value={nomorHp} onChange={(e) => setNomorHp(e.target.value)} className="w-full p-3.5 rounded-xl border border-neutral-800 bg-neutral-900 text-sm text-gray-100 focus:border-amber-500 focus:outline-none" />
                 </div>
               </div>
-              <div className="space-y-2 md:col-span-2 mt-4 pt-4 border-t border-gray-100">
-                <label className="block text-xs font-black uppercase tracking-wider text-gray-500 mb-4">Pilih Jam Kedatangan</label>
-                <div className="grid grid-cols-3 sm:grid-cols-5 gap-3">
+
+              {/* SLOT WAKTU */}
+              <div className="md:col-span-2 mt-4 pt-4 border-t border-neutral-800">
+                <label className="text-xs text-gray-400 uppercase tracking-wider block mb-3">Pilih Jam Operasional</label>
+                <div className="grid grid-cols-3 sm:grid-cols-5 gap-2.5">
                   {slotWaktu.map((slot) => {
                     const isBooked = jamSudahDipesan.includes(slot);
                     return (
                       <button type="button" key={slot} disabled={isBooked || !tanggal || !selectedKapster} onClick={() => setJam(slot)}
-                        className={`py-4 rounded-xl text-sm font-bold transition-all border-2 ${!tanggal || !selectedKapster ? "bg-gray-50 text-gray-300 border-transparent cursor-not-allowed" : isBooked ? "bg-gray-100 text-gray-400 border-transparent cursor-not-allowed line-through" : jam === slot ? "bg-[#1A1A1A] text-white border-[#1A1A1A] scale-105" : "bg-white border-gray-200 hover:border-[#1A1A1A]"}`}>
+                        className={`py-3 rounded-lg text-xs font-mono transition-all ${!tanggal || !selectedKapster ? "bg-neutral-950 text-neutral-700 cursor-not-allowed" : isBooked ? "bg-neutral-900 text-neutral-600 line-through cursor-not-allowed" : jam === slot ? "bg-amber-500 text-black font-bold" : "bg-neutral-900 border border-neutral-800 text-gray-300 hover:border-neutral-600"}`}>
                         {slot}
                       </button>
                     );
@@ -299,11 +254,9 @@ export default function ReservasiPage() {
             </div>
           </div>
 
-          <div className="pt-4 text-center">
-            <button type="submit" disabled={submitting} className={`w-full md:w-auto px-12 py-5 rounded-full text-white font-black uppercase tracking-widest text-sm transition-all duration-300 shadow-md ${submitting ? "bg-gray-400" : "bg-[#1A1A1A] hover:bg-gray-800"}`}>
-              {submitting ? "Memproses..." : "Konfirmasi Reservasi Sekarang"}
-            </button>
-          </div>
+          <button type="submit" disabled={submitting} className="w-full py-4 rounded-xl bg-amber-500 hover:bg-amber-600 text-black font-bold uppercase text-xs tracking-widest transition-all shadow-lg shadow-amber-500/10 disabled:bg-neutral-800 disabled:text-gray-500">
+            {submitting ? "MEMPROSES RESERVASI..." : "KONFIRMASI BOOKING VIA WA"}
+          </button>
         </form>
       </div>
     </main>
