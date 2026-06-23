@@ -38,23 +38,20 @@ def cek_jadwal(request):
     # Kalau tanggal atau kapster kosong, kembalikan list kosong
     if not tanggal_dicari or not kapster_dicari:
         return Response({"jam_terisi": []})
-
-    # Cari di database: pesanan yang tanggal dan kapsternya cocok
-    pesanan_ditemukan = PesananBooking.objects.filter(
+    
+    # Kumpulkan jam-jam yang sudah terisi ke dalam sebuah daftar (list)
+    jam_terisi = PesananBooking.objects.filter(
         tanggal=tanggal_dicari, 
         kapster_id=kapster_dicari
-    )
-
-    # Kumpulkan jam-jam yang sudah terisi ke dalam sebuah daftar (list)
-    jam_terisi = [pesanan.jam_booking for pesanan in pesanan_ditemukan]
-
+    ).values_list('jam_booking', flat=True)
+    
     return Response({"jam_terisi": jam_terisi})
 
 @api_view(['GET'])
 @permission_classes([IsAuthenticated]) # <-- Wajib bawa ID Card (Token JWT)
 def daftar_pesanan(request):
     # Ambil semua pesanan dari database, urutkan dari yang terbaru (-id)
-    pesanan = PesananBooking.objects.all().order_by('-id')
+    pesanan = PesananBooking.objects.select_related('kapster').prefetch_related('layanan').all().order_by('-id')
     
     # Ubah data database menjadi format JSON menggunakan serializer
     serializer = PesananBookingSerializer(pesanan, many=True)
