@@ -129,16 +129,16 @@ export default function ReservasiPage() {
       // ==========================================
       // KODE BARU: LOGIKA NOMOR WA DINAMIS
       // ==========================================
-      let nomorWA = "6282358155538"; // Ini jadi nomor default/admin (buat jaga-jaga)
+      let nomorWA = "6285753424792"; // Ini jadi nomor default/admin (buat jaga-jaga)
 
       if (kapsterObj) {
         const namaKapsterLower = kapsterObj.nama.toLowerCase();
 
         // Cek apakah nama kapster yang dipilih mengandung kata "fadil" atau "fredo"
         if (namaKapsterLower.includes("fadil")) {
-          nomorWA = "6282358155538"; // <-- GANTI DENGAN NOMOR WA BANG FADIL ASLI 6285753424792
+          nomorWA = "6285753424792"; // <-- GANTI DENGAN NOMOR WA BANG FADIL ASLI 
         } else if (namaKapsterLower.includes("fredo")) {
-          nomorWA = "6282358155538"; // <-- GANTI DENGAN NOMOR WA BANG FREDO ASLI 6282247091885
+          nomorWA = "6282247091885"; // <-- GANTI DENGAN NOMOR WA BANG FREDO ASLI 
         }
       }
 
